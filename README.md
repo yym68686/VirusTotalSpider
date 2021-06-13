@@ -1,0 +1,2 @@
+# VirusTotalSpider
+基于sha256使用selenium爬取Virustotal获得文件类型与行为特征文件
