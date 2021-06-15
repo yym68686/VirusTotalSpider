@@ -25,7 +25,8 @@ opt.add_argument("disable-gpu")
 opt.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = Edge(executable_path = lastpath + "msedgedriver.exe", options = opt)
 i = 0
-for filehash in sha256set[:2225]:
+for filehash in sha256set:
+    i = i + 1
     if filehash != "":
         fileurl = 'https://www.virustotal.com/gui/file/' + filehash + '/behavior/VirusTotal%20Cuckoofork'
         window_handles = driver.window_handles
@@ -41,18 +42,20 @@ for filehash in sha256set[:2225]:
             time.sleep(60) # 等待手动通过
         if "Cuckoofork" not in driver.current_url: # 不存在Cuckoofork文件则跳过此sha256
             continue
+        time.sleep(1)
         ActionChains(driver).move_by_offset(34, 131).click().perform() # 点击下载文件
         ActionChains(driver).move_by_offset(-34, -131).perform()       # 恢复鼠标偏移
-        # time.sleep(1)
         window_handles = driver.window_handles
         if len(window_handles) != 1: # 检测当前几个浏览器标签页，这里需要保证网络通畅，否则可能出错
             driver.switch_to.window(window_handles[1]) # 切换窗口
+            if "googleapis" not in str(driver.current_url):
+                continue
             driver.find_element_by_tag_name('body') # 等待body元素出现
             ActionChains(driver).move_by_offset(1, 1).click().key_down(Keys.CONTROL).send_keys('a').send_keys('c').key_up(Keys.CONTROL).perform() # 点击浏览器，全选网页内容并复制到粘贴板，此时禁止其他复制行为
             ActionChains(driver).move_by_offset(-1, -1).perform() # 恢复偏移
             driver.close() # 关闭标签页
             data = pyperclip.paste()   # 将文本复制，并用文件保存下来
-            if data != "1" and ("error" not in data) and ("info" in data): # 过滤不符合要求的文本
+            if data != "1" and ("error" not in data) and ('{"info":' in data) and ("VirusTotal" not in data) and ("Target" not in data): # 过滤不符合要求的文本
                 pyperclip.copy("1") # 检测复制有效flag标记
                 json_data = json.loads(data) # 加载json数据
                 with open(path + filehash + '.json', 'w', encoding='UTF-8') as f: # 保存文件
@@ -61,6 +64,4 @@ for filehash in sha256set[:2225]:
             if "RecaptchaRequiredError" in data: # 检测到ip被ban，立即停止
                 print("blocked")
                 exit(0)
-            time.sleep(0.5)
         print(i) # 显示当前是第多少个sha256已经完成下载
-    i = i + 1
