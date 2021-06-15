@@ -18,12 +18,12 @@ csvpath = os.path.abspath(os.path.dirname(__file__)) + '/'
 sha256set = np.loadtxt(lastpath + "overview.csv", delimiter=",", usecols=(8), dtype=str, skiprows=1)
 print('finish data load...')
 
-opt = EdgeOptions() # 使用基于Chromium内核的Microsoft Edge浏览器
+opt = EdgeOptions() # 使用基于Chromium内核的Microsoft Edge浏览器，其他浏览器需要看情况更改
 opt.use_chromium = True
 # opt.add_argument("headless") # 无头浏览器，如果运行出错请注释掉这句。
 opt.add_argument("disable-gpu")
 opt.add_experimental_option('excludeSwitches', ['enable-logging'])
-driver = Edge(executable_path = lastpath + "msedgedriver.exe", options = opt)
+driver = Edge(executable_path = lastpath + "msedgedriver.exe", options = opt) # 这里msedgedriver.exe需要跟下载的webdriver名字对应，默认在项目文件根目录
 i = 0
 for filehash in sha256set:
     i = i + 1
