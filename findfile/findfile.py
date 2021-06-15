@@ -25,7 +25,7 @@ opt.add_argument("disable-gpu")
 opt.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = Edge(executable_path = lastpath + "msedgedriver.exe", options = opt)
 i = 0
-for filehash in sha256set[2069:2225]:
+for filehash in sha256set[:2225]:
     if filehash != "":
         fileurl = 'https://www.virustotal.com/gui/file/' + filehash + '/behavior/VirusTotal%20Cuckoofork'
         window_handles = driver.window_handles
@@ -33,7 +33,7 @@ for filehash in sha256set[2069:2225]:
         driver.get(fileurl)
         driver.implicitly_wait(7)
         driver.find_element_by_tag_name('body')
-        time.sleep(2)
+        time.sleep(1)
         print(driver.current_url)# 输出当前链接
         if driver.current_url == "https://www.virustotal.com/gui/captcha": # 检测是否被网站拦截，拦截了手动通过图形验证码限时60s
             ActionChains(driver).move_by_offset(342, 146).click().perform() # 自动点击，打开图形验证码
@@ -43,7 +43,8 @@ for filehash in sha256set[2069:2225]:
             continue
         ActionChains(driver).move_by_offset(34, 131).click().perform() # 点击下载文件
         ActionChains(driver).move_by_offset(-34, -131).perform()       # 恢复鼠标偏移
-        time.sleep(2)
+        # time.sleep(1)
+        window_handles = driver.window_handles
         if len(window_handles) != 1: # 检测当前几个浏览器标签页，这里需要保证网络通畅，否则可能出错
             driver.switch_to.window(window_handles[1]) # 切换窗口
             driver.find_element_by_tag_name('body') # 等待body元素出现
@@ -60,6 +61,6 @@ for filehash in sha256set[2069:2225]:
             if "RecaptchaRequiredError" in data: # 检测到ip被ban，立即停止
                 print("blocked")
                 exit(0)
-            time.sleep(5)
+            time.sleep(0.5)
         print(i) # 显示当前是第多少个sha256已经完成下载
     i = i + 1
