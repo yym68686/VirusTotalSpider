@@ -2,7 +2,7 @@
 numpy
 pandas
 certifi
-selenium==3.141.0
+selenium
 pyOpenSSL
 pyperclip
 cryptography
