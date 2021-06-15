@@ -3,5 +3,5 @@
 
 ## 项目介绍
 
-https://www.notion.so/yym68686/selenium-Virustotal-c7811c7eb2304c6fb10667dc457b7af3
+https://yym68686.top/selenium-Virustotal-c7811c7eb2304c6fb10667dc457b7af3
 
