@@ -13,9 +13,10 @@ headers = {
 
 print('load data...')
 lastpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__))) + '/'
+rootpath = os.path.abspath(os.path.join(os.getcwd(), "..")) + '/'
 path = os.path.abspath(os.path.dirname(__file__)) + '/jsondir/'
 csvpath = os.path.abspath(os.path.dirname(__file__)) + '/'
-sha256set = np.loadtxt(lastpath + "overview.csv", delimiter=",", usecols=(8), dtype=str, skiprows=1)
+sha256set = np.loadtxt(rootpath + "overview.csv", delimiter=",", usecols=(0), dtype=str, skiprows=1) # usecols=(0) 0表示hash值是第0列，这个需要按情况做修改。
 print('finish data load...')
 
 opt = EdgeOptions() # 使用基于Chromium内核的Microsoft Edge浏览器，其他浏览器需要看情况更改
@@ -23,7 +24,7 @@ opt.use_chromium = True
 # opt.add_argument("headless") # 无头浏览器，如果运行出错请注释掉这句。
 opt.add_argument("disable-gpu")
 opt.add_experimental_option('excludeSwitches', ['enable-logging'])
-driver = Edge(executable_path = lastpath + "msedgedriver.exe", options = opt) # 这里msedgedriver.exe需要跟下载的webdriver名字对应，默认在项目文件根目录
+driver = Edge(executable_path = rootpath + "msedgedriver.exe", options = opt) # 这里msedgedriver.exe需要跟下载的webdriver名字对应，默认在项目文件根目录
 i = 0
 for filehash in sha256set:
     i = i + 1
