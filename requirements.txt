@@ -1,9 +1,9 @@
 # pip install -r requirements.txt
-numpy
-pandas
-certifi
-selenium
-pyOpenSSL
-pyperclip
-cryptography
-msedge-selenium-tools
+numpy==1.19.5
+pandas==1.1.5
+certifi==2021.5.30
+selenium==3.141.0
+pyOpenSSL==20.0.1
+pyperclip==1.8.2
+cryptography==3.4.7
+msedge-selenium-tools==3.141.3
