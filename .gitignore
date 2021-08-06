@@ -1,3 +1,5 @@
 .vscode
 *.csv
 !findtype/success.csv
+!overview.csv
+*.txt
