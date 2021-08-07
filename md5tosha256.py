@@ -10,7 +10,7 @@ headers = {
 
 print('load data...')
 rootpath = os.path.abspath(os.path.join(os.getcwd(), "..")) + '/'
-sha256set = np.loadtxt(rootpath + "overview.csv", delimiter=",", usecols=(0), dtype=str, skiprows=1) # usecols=(0) 0表示hash值是第0列，这个需要按情况做修改。
+sha256set = np.loadtxt(rootpath + "GamaredonGroup.csv", delimiter=",", usecols=(0), dtype=str, skiprows=1) # usecols=(0) 0表示hash值是第0列，这个需要按情况做修改。
 print('finish data load...')
 
 opt = EdgeOptions() # 使用基于Chromium内核的Microsoft Edge浏览器，其他浏览器需要看情况更改

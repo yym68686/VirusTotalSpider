@@ -3,3 +3,6 @@
 !findtype/success.csv
 !overview.csv
 *.txt
+APTgithubsourcefile/
+findfile/APT10/
+*.json
