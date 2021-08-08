@@ -40,7 +40,7 @@ for filehash in sha256set:
         if driver.current_url == "https://www.virustotal.com/gui/captcha": # 检测是否被网站拦截，拦截了手动通过图形验证码限时60s
             ActionChains(driver).move_by_offset(342, 146).click().perform() # 自动点击，打开图形验证码
             ActionChains(driver).move_by_offset(-342, -146).perform()
-            time.sleep(60) # 等待手动通过
+            time.sleep(90) # 等待手动通过
         if "Cuckoofork" not in driver.current_url: # 不存在Cuckoofork文件则跳过此sha256
             continue
         time.sleep(1)
